@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimple.project.member.speed.mapper.EduSpeedMapper">
+
+    <resultMap type="com.dimple.project.member.speed.entity.EduSpeed" id="EduSpeedMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="chapter" column="chapter" jdbcType="INTEGER"/>
+        <result property="section" column="section" jdbcType="INTEGER"/>
+        <result property="subjectNumber" column="subject_number" jdbcType="INTEGER"/>
+        <result property="updatTime" column="updat_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <!--要查询显示的字段-->
+    <sql id="Base_Column_List">
+        id, user_id, chapter, section, subject_number, updat_time        
+    </sql>
+    
+    <!--要条件查询的字段-->
+    <sql id="Column_Query">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="chapter != null">
+            and chapter = #{chapter}
+        </if>
+        <if test="section != null">
+            and section = #{section}
+        </if>
+        <if test="subjectNumber != null">
+            and subject_number = #{subjectNumber}
+        </if>
+        <if test="updatTime != null">
+            and updat_time = #{updatTime}
+        </if>
+    </sql>
+    
+    <!--要更新的字段一-->
+    <sql id="Column_Update_One">
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="chapter != null">
+            chapter = #{chapter},
+        </if>
+        <if test="section != null">
+            section = #{section},
+        </if>
+        <if test="subjectNumber != null">
+            subject_number = #{subjectNumber},
+        </if>
+        <if test="updatTime != null">
+            updat_time = #{updatTime},
+        </if>
+    </sql>
+    
+    <!--要更新的字段二-->
+    <sql id="Column_Update_Two">
+        <if test="item.userId != null">
+            user_id = #{item.userId},
+        </if>
+        <if test="item.chapter != null">
+            chapter = #{item.chapter},
+        </if>
+        <if test="item.section != null">
+            section = #{item.section},
+        </if>
+        <if test="item.subjectNumber != null">
+            subject_number = #{item.subjectNumber},
+        </if>
+        <if test="item.updatTime != null">
+            updat_time = #{item.updatTime},
+        </if>
+    </sql>
+    
+    <!--要新增的字段-->
+    <sql id="Column_Set">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="chapter != null">
+            chapter,
+        </if>
+        <if test="section != null">
+            section,
+        </if>
+        <if test="subjectNumber != null">
+            subject_number,
+        </if>
+        <if test="updatTime != null">
+            updat_time,
+        </if>
+    </sql>
+    <!--要赋值的字段-->
+    <sql id="Column_Value_One">
+        <if test="id != null">
+            #{id},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="chapter != null">
+            #{chapter},
+        </if>
+        <if test="section != null">
+            #{section},
+        </if>
+        <if test="subjectNumber != null">
+            #{subjectNumber},
+        </if>
+        <if test="updatTime != null">
+            #{updatTime},
+        </if>
+    </sql>
+    
+    <!--要赋值的字段二-->
+    <sql id="Column_Value_Two">
+        <if test="item.id != null">
+            #{item.id},
+        </if>
+        <if test="item.userId != null">
+            #{item.userId},
+        </if>
+        <if test="item.chapter != null">
+            #{item.chapter},
+        </if>
+        <if test="item.section != null">
+            #{item.section},
+        </if>
+        <if test="item.subjectNumber != null">
+            #{item.subjectNumber},
+        </if>
+        <if test="item.updatTime != null">
+            #{item.updatTime},
+        </if>
+    </sql>
+    
+    <!--通过id查询-->
+    <select id="getEduSpeedById" resultMap="EduSpeedMap">
+        select 
+            <include refid="Base_Column_List"/>
+        from edu_speed
+        where 
+            id = #{id}
+    </select>
+
+    <!--通过对象查询-->
+    <select id="selectEduSpeed" parameterType="com.dimple.project.member.speed.entity.EduSpeed" resultMap="EduSpeedMap">
+        select
+            <include refid="Base_Column_List"/>
+        from edu_speed
+        where 1=1
+        <include refid="Column_Query"/>
+    </select>
+    
+    <!--通过id更改对象-->
+    <update id="updateEduSpeedById" parameterType="com.dimple.project.member.speed.entity.EduSpeed">
+        update edu_speed
+        <set>
+            <include refid="Column_Update_One"/>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--批量更改对象-->
+    <update id="updateEduSpeedList" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            update edu_speed
+            <set>
+                <include refid="Column_Update_Two"/>
+            </set>
+        </foreach>
+    </update>
+    
+    <!--通过id删除-->
+    <delete id="deleteEduSpeedById">
+        delete from edu_speed 
+        where 
+            id = #{id}
+    </delete>
+    
+    <!--通过ids批量删除-->
+    <delete id="deleteEduSpeedByIds">
+        delete from edu_speed 
+        where 
+            id in (ids)
+    </delete>
+    
+    <!--新增数据-->
+    <insert id="insertEduSpeed" parameterType="com.dimple.project.member.speed.entity.EduSpeed">
+        insert into edu_speed
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="Column_Value_One"/>
+        </trim>
+    </insert>
+    
+    
+    <!--批量新增数据-->
+    <insert id="insertEduSpeedList" parameterType="java.util.List">
+        insert into edu_speed
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <include refid="Column_Value_Two"/>
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

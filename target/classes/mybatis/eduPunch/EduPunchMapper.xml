@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimple.project.member.punch.mapper.EduPunchMapper">
+
+    <resultMap type="com.dimple.project.member.punch.entity.EduPunch" id="EduPunchMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <!--要查询显示的字段-->
+    <sql id="Base_Column_List">
+        id, user_id, updatetime        
+    </sql>
+    
+    <!--要条件查询的字段-->
+    <sql id="Column_Query">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="updatetime != null">
+            and updatetime = #{updatetime}
+        </if>
+    </sql>
+    
+    <!--要更新的字段一-->
+    <sql id="Column_Update_One">
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="updatetime != null">
+            updatetime = #{updatetime},
+        </if>
+    </sql>
+    
+    <!--要更新的字段二-->
+    <sql id="Column_Update_Two">
+        <if test="item.userId != null">
+            user_id = #{item.userId},
+        </if>
+        <if test="item.updatetime != null">
+            updatetime = #{item.updatetime},
+        </if>
+    </sql>
+    
+    <!--要新增的字段-->
+    <sql id="Column_Set">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="updatetime != null">
+            updatetime,
+        </if>
+    </sql>
+    <!--要赋值的字段-->
+    <sql id="Column_Value_One">
+        <if test="id != null">
+            #{id},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="updatetime != null">
+            #{updatetime},
+        </if>
+    </sql>
+
+
+    <!--要赋值的字段二-->
+    <sql id="Column_Value_Two">
+        <if test="item.id != null">
+            #{item.id},
+        </if>
+        <if test="item.userId != null">
+            #{item.userId},
+        </if>
+        <if test="item.updatetime != null">
+            #{item.updatetime},
+        </if>
+    </sql>
+
+
+    <!--查询打卡记录-->
+    <select id="selectEduPuncHistory" parameterType="java.lang.Integer" resultType="java.lang.String">
+       SELECT DATE_FORMAT(updatetime,'%Y%m%d') updatetime FROM edu_punch WHERE user_id =#{id} group by updatetime
+    </select>
+    
+    <!--通过id查询-->
+    <select id="getEduPunchById" resultMap="EduPunchMap">
+        select 
+            <include refid="Base_Column_List"/>
+        from edu_punch
+        where 
+            id = #{id}
+    </select>
+
+    <!--通过对象查询-->
+    <select id="selectEduPunch" parameterType="com.dimple.project.member.punch.entity.EduPunch" resultMap="EduPunchMap">
+        select
+            <include refid="Base_Column_List"/>
+        from edu_punch
+        where 1=1
+        <include refid="Column_Query"/>
+    </select>
+    
+    <!--通过id更改对象-->
+    <update id="updateEduPunch" parameterType="com.dimple.project.member.punch.entity.EduPunch">
+        update edu_punch
+        <set>
+            <include refid="Column_Update_One"/>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--批量更改对象-->
+    <update id="updateEduPunchList" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            update edu_punch
+            <set>
+                <include refid="Column_Update_Two"/>
+            </set>
+        </foreach>
+    </update>
+    
+    <!--通过id删除-->
+    <delete id="deleteEduPunchById">
+        delete from edu_punch 
+        where 
+            id = #{id}
+    </delete>
+    
+    <!--通过ids批量删除-->
+    <delete id="deleteEduPunchByIds">
+        delete from edu_punch 
+        where 
+            id in (ids)
+    </delete>
+    
+    <!--新增数据-->
+    <insert id="insertEduPunch" parameterType="com.dimple.project.member.punch.entity.EduPunch">
+        insert into edu_punch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="Column_Value_One"/>
+        </trim>
+    </insert>
+    
+    
+    <!--批量新增数据-->
+    <insert id="insertEduPunchList" parameterType="java.util.List">
+        insert into edu_punch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <include refid="Column_Value_Two"/>
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

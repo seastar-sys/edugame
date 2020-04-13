@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('新增题目')"/>
+    <th:block th:include="include :: layout-latest-css"/>
+    <th:block th:include="include :: summernote-css"/>
+    <th:block th:include="include :: bootstrap-tagsinput-css"/>
+    <script type="text/javascript" src="../js/jsAddress.js"></script>
+</head>
+<body class="gray-bg">
+<div class="container-div ui-layout-center">
+    <div class="row">
+        <div class="mail-box-header">
+            <h2>题目内容</h2>
+        </div>
+        <div class="mail-box">
+            <div class="ui-layout-content">
+                <form id="blogAddForm">
+                    <div class="col-sm-12">
+                        <div class="panel panel-success col-md-4 m-1" >
+                            <div class="panel-heading ">
+                                <h3 class="panel-title">题目信息</h3>
+                            </div>
+                            <div class="panel-body ">
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <label class="col-sm-12 control-label"><span class="label label-danger">地图区域</span></label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col-sm-12 control-label"><span class="label label-primary">区域等级</span></label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col-sm-12 control-label"><span class="label label-warning">等级关卡</span></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <select name="map_a" id="area" class="form-control" >
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select name="map_b" id="cmbProvince" class="form-control">
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select name="map_c" id="cmbCity" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"></label>
+                                    <input type="text" name="title" class="form-control" id="title" placeholder="请输入本题题目">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="content" id= "content" placeholder="请输入本题考点信息或者内容" rows="10"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary col-md-4 m-1">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title">左题目信息</h3>
+                        </div>
+                        <div class="panel-body ">
+                            <div class="form-group">
+                                <input type="file" id='i-leftPicture'  accept="image/*" onchange="onInputFileChange('i-leftPicture','leftPicture','0');" style="display: none">
+                                <input type="text" id='leftPictureText' value="" style="display: none" >
+                                <img src="/img/yi.png" width="50%"  height="50%"  id="leftPicture" onclick="$('#i-leftPicture').click();" title="点击更换图片"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="">
+                                    <label class="control-label">中文语音</label>
+                                    <div class="input-group">
+                                        <input id='location-leftChineseVoice' class="form-control" onclick="$('#i-leftChineseVoice').click();">
+                                        <label class="input-group-btn">
+                                            <input type="button" id="i-check" value="浏览文件" class="btn btn-primary" onclick="$('#i-leftChineseVoice').click();">
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="file" name="leftChineseVoice" id='i-leftChineseVoice'  accept=".mp3" onchange="$('#location-leftChineseVoice').val($('#i-leftChineseVoice').val());onInputFileChange('i-leftChineseVoice','leftChineseVoice','1');" style="display: none">
+                                <input type="text" id='leftChineseVoiceMusic'  style="display: none">
+                                <audio src="/voice/english.mp3" id="leftChineseVoice" class="hidden" controls="controls"/>
+                            </div>
+                            <div class="form-group">
+                            <div class="">
+                                <label class="control-label">英文语音</label>
+                                <div class="input-group">
+                                    <input id='location-leftEnglishVoice' class="form-control" onclick="$('#i-leftEnglishVoice').click();">
+                                    <label class="input-group-btn">
+                                        <input type="button"  value="浏览文件" class="btn btn-primary" onclick="$('#i-leftEnglishVoice').click();">
+                                    </label>
+                                </div>
+                            </div>
+                            <input type="file" name="leftEnglishVoice" id='i-leftEnglishVoice'  accept=".mp3" onchange="$('#location-leftEnglishVoice').val($('#i-leftEnglishVoice').val());onInputFileChange('i-leftEnglishVoice','leftEnglishVoice','1');" style="display: none">
+                                <input type="text" id='leftEnglishVoiceMusic'  style="display: none">
+                                <audio src="/voice/english.mp3" id="leftEnglishVoice" class="hidden" controls="controls"/>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="panel panel-danger col-md-4 m-1" >
+                        <div class="panel-heading ">
+                            <h3 class="panel-title">右题目信息</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <input type="file" id='i-rightPicture'  accept="image/*" onchange="onInputFileChange('i-rightPicture','rightPicture','0');" style="display: none">
+                                <input type="text" id="rightPictureText" value="" style="display: none">
+                                <img src="/img/yi.png" width="50%"  height="50%"   id="rightPicture" onclick="$('#i-rightPicture').click();"  title="点击更换图片"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="">
+                                    <label class="control-label">中文语音</label>
+                                    <div class="input-group">
+                                        <input id='location-rightChineseVoice' class="form-control" onclick="$('#i-rightChineseVoice').click();">
+                                        <label class="input-group-btn">
+                                            <input type="button"  value="浏览文件" class="btn btn-primary" onclick="$('#i-rightChineseVoice').click();">
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="file" name="rightChineseVoice" id='i-rightChineseVoice'  accept=".mp3" onchange="$('#location-rightChineseVoice').val($('#i-rightChineseVoice').val());onInputFileChange('i-rightChineseVoice','rightChineseVoice','1');" style="display: none">
+                                <input type="text" id='rightChineseVoiceMusic'  style="display: none">
+                                <audio src="/voice/english.mp3" id="rightChineseVoice" class="hidden" controls="controls"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="">
+                                    <label class="control-label">英文语音</label>
+                                    <div class="input-group">
+                                        <input id='location-rightEnglishVoice' class="form-control" onclick="$('#i-rightEnglishVoice').click();">
+                                        <label class="input-group-btn">
+                                            <input type="button"  value="浏览文件" class="btn btn-primary" onclick="$('#i-rightEnglishVoice').click();">
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="file" name="rightEnglishVoice" id='i-rightEnglishVoice'  accept=".mp3" onchange="$('#location-rightEnglishVoice').val($('#i-rightEnglishVoice').val());onInputFileChange('i-rightEnglishVoice','rightEnglishVoice','1');" style="display: none">
+                                <input type="text" id='rightEnglishVoiceMusic'  style="display: none">
+                                <audio src="/voice/english.mp3" id="rightEnglishVoice" class="hidden" controls="controls"/>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+            <div class="mail-body text-right tooltip-demo">
+                <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i
+                        class="fa fa-check"></i>保 存
+                </button>&nbsp;
+                <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i
+                        class="fa fa-reply-all"></i>关 闭
+                </button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: summernote-js"/>
+<th:block th:include="include :: layout-latest-js"/>
+<th:block th:include="include :: bootstrap-tagsinput-js"/>
+<script>
+    addressInit('area','cmbProvince','cmbCity','1', '1', '1');
+
+    //获取表单数据
+    function getData() {
+        var map_a = $("#area option:selected").text();
+        var map_b = $("#cmbProvince option:selected").text();
+        var map_c = $("#cmbCity option:selected").text();
+
+        var title = $("#title").val();
+        var content = $("#content").val();
+
+        var leftPicture = $("#leftPictureText").val();
+        var leftChineseVoice = $("#leftChineseVoiceMusic").val();
+        var leftEnglishVoice = $("#leftEnglishVoiceMusic").val();
+
+        var righPicture = $("#rightPictureText").val();
+        var righChineseVoice = $("#rightChineseVoiceMusic").val();
+        var righEnglishVoice = $("#rightEnglishVoiceMusic").val();
+
+        var data = {
+            chapter: map_a,
+            section: map_b,
+            subjectNumber: map_c,
+            title: title,
+            content: content,
+            leftPicture: leftPicture,
+            leftChineseVoice: leftChineseVoice,
+            leftEnglishVoice: leftEnglishVoice,
+            rightPicture: righPicture,
+            rightChineseVoice: righChineseVoice,
+            rightEnglishVoice: righEnglishVoice
+        }
+        return data;
+    }
+    function submitHandler() {
+       /* if ($.validate.form()) {
+
+        }*/
+        var data = getData();
+        console.log(data)
+        $.operate.saveTab("/item/add", data);
+    }
+    function onInputFileChange(input,voice,type) {
+        var fileM=document.querySelector("#"+input);
+        var fileObj = fileM.files[0];
+        var formData = new FormData();
+        formData.append('file', fileObj);
+        $.ajax({
+            url:'/common/upload',
+            type:'post',
+            data:formData,
+            contentType: false,
+            processData: false,
+            success:function (data) {
+                if(data.code==200){
+                    document.getElementById(voice).src = data.url;
+                    $('#'+voice).attr('class','show');
+                    if(type==0){
+                        document.getElementById(voice+"Text").value = data.url;
+                    }else{
+                        document.getElementById(voice+"Music").value = data.url;
+                    }
+                }else{
+                    alert("上传失败，请按F5刷新重试");
+                }
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimple.project.member.order.mapper.EduOrderMapper">
+
+    <resultMap type="com.dimple.project.member.order.entity.EduOrder" id="EduOrderMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="phnumber" column="phnumber" jdbcType="VARCHAR"/>
+        <result property="nick" column="nick" jdbcType="VARCHAR"/>
+        <result property="nonceStr" column="nonce_str" jdbcType="VARCHAR"/>
+        <result property="totalFee" column="total_fee" jdbcType="INTEGER"/>
+        <result property="body" column="body" jdbcType="VARCHAR"/>
+        <result property="sign" column="sign" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <!--要查询显示的字段-->
+    <sql id="Base_Column_List">
+        id, user_id, phnumber, nick, nonce_str, total_fee, body, sign, state        
+    </sql>
+    
+    <!--要条件查询的字段-->
+    <sql id="Column_Query">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="phnumber != null and phnumber != ''">
+            and phnumber = #{phnumber}
+        </if>
+        <if test="nick != null and nick != ''">
+            and nick = #{nick}
+        </if>
+        <if test="nonceStr != null and nonceStr != ''">
+            and nonce_str = #{nonceStr}
+        </if>
+        <if test="totalFee != null">
+            and total_fee = #{totalFee}
+        </if>
+        <if test="body != null and body != ''">
+            and body = #{body}
+        </if>
+        <if test="sign != null and sign != ''">
+            and sign = #{sign}
+        </if>
+        <if test="state != null">
+            and state = #{state}
+        </if>
+    </sql>
+    
+    <!--要更新的字段一-->
+    <sql id="Column_Update_One">
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="phnumber != null and phnumber != ''">
+            phnumber = #{phnumber},
+        </if>
+        <if test="nick != null and nick != ''">
+            nick = #{nick},
+        </if>
+        <if test="nonceStr != null and nonceStr != ''">
+            nonce_str = #{nonceStr},
+        </if>
+        <if test="totalFee != null">
+            total_fee = #{totalFee},
+        </if>
+        <if test="body != null and body != ''">
+            body = #{body},
+        </if>
+        <if test="sign != null and sign != ''">
+            sign = #{sign},
+        </if>
+        <if test="state != null">
+            state = #{state},
+        </if>
+    </sql>
+    
+    <!--要更新的字段二-->
+    <sql id="Column_Update_Two">
+        <if test="item.userId != null">
+            user_id = #{item.userId},
+        </if>
+        <if test="item.phnumber != null and item.phnumber != ''">
+            phnumber = #{item.phnumber},
+        </if>
+        <if test="item.nick != null and item.nick != ''">
+            nick = #{item.nick},
+        </if>
+        <if test="item.nonceStr != null and item.nonceStr != ''">
+            nonce_str = #{item.nonceStr},
+        </if>
+        <if test="item.totalFee != null">
+            total_fee = #{item.totalFee},
+        </if>
+        <if test="item.body != null and item.body != ''">
+            body = #{item.body},
+        </if>
+        <if test="item.sign != null and item.sign != ''">
+            sign = #{item.sign},
+        </if>
+        <if test="item.state != null">
+            state = #{item.state},
+        </if>
+    </sql>
+    
+    <!--要新增的字段-->
+    <sql id="Column_Set">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="phnumber != null and phnumber != ''">
+            phnumber,
+        </if>
+        <if test="nick != null and nick != ''">
+            nick,
+        </if>
+        <if test="nonceStr != null and nonceStr != ''">
+            nonce_str,
+        </if>
+        <if test="totalFee != null">
+            total_fee,
+        </if>
+        <if test="body != null and body != ''">
+            body,
+        </if>
+        <if test="sign != null and sign != ''">
+            sign,
+        </if>
+        <if test="state != null">
+            state,
+        </if>
+    </sql>
+    <!--要赋值的字段-->
+    <sql id="Column_Value_One">
+        <if test="id != null">
+            #{id},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="phnumber != null and phnumber != ''">
+            #{phnumber},
+        </if>
+        <if test="nick != null and nick != ''">
+            #{nick},
+        </if>
+        <if test="nonceStr != null and nonceStr != ''">
+            #{nonceStr},
+        </if>
+        <if test="totalFee != null">
+            #{totalFee},
+        </if>
+        <if test="body != null and body != ''">
+            #{body},
+        </if>
+        <if test="sign != null and sign != ''">
+            #{sign},
+        </if>
+        <if test="state != null">
+            #{state},
+        </if>
+    </sql>
+    
+    <!--要赋值的字段二-->
+    <sql id="Column_Value_Two">
+        <if test="item.id != null">
+            #{item.id},
+        </if>
+        <if test="item.userId != null">
+            #{item.userId},
+        </if>
+        <if test="item.phnumber != null and item.phnumber != ''">
+            #{item.phnumber},
+        </if>
+        <if test="item.nick != null and item.nick != ''">
+            #{item.nick},
+        </if>
+        <if test="item.nonceStr != null and item.nonceStr != ''">
+            #{item.nonceStr},
+        </if>
+        <if test="item.totalFee != null">
+            #{item.totalFee},
+        </if>
+        <if test="item.body != null and item.body != ''">
+            #{item.body},
+        </if>
+        <if test="item.sign != null and item.sign != ''">
+            #{item.sign},
+        </if>
+        <if test="item.state != null">
+            #{item.state},
+        </if>
+    </sql>
+    
+    <!--通过id查询-->
+    <select id="getEduOrderById" resultMap="EduOrderMap">
+        select 
+            <include refid="Base_Column_List"/>
+        from edu_order
+        where 
+            id = #{id}
+    </select>
+
+    <!--通过对象查询-->
+    <select id="selectEduOrder" parameterType="com.dimple.project.member.order.entity.EduOrder" resultMap="EduOrderMap">
+        select
+            <include refid="Base_Column_List"/>
+        from edu_order
+        where 1=1
+        <include refid="Column_Query"/>
+    </select>
+    
+    <!--通过id更改对象-->
+    <update id="updateEduOrder" parameterType="com.dimple.project.member.order.entity.EduOrder">
+        update edu_order
+        <set>
+            <include refid="Column_Update_One"/>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--批量更改对象-->
+    <update id="updateEduOrderList" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            update edu_order
+            <set>
+                <include refid="Column_Update_Two"/>
+            </set>
+        </foreach>
+    </update>
+    
+    <!--通过id删除-->
+    <delete id="deleteEduOrderById">
+        delete from edu_order 
+        where 
+            id = #{id}
+    </delete>
+    
+    <!--通过ids批量删除-->
+    <delete id="deleteEduOrderByIds">
+        delete from edu_order 
+        where 
+            id in (ids)
+    </delete>
+    
+    <!--新增数据-->
+    <insert id="insertEduOrder" parameterType="com.dimple.project.member.order.entity.EduOrder">
+        insert into edu_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="Column_Value_One"/>
+        </trim>
+    </insert>
+    
+    
+    <!--批量新增数据-->
+    <insert id="insertEduOrderList" parameterType="java.util.List">
+        insert into edu_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <include refid="Column_Value_Two"/>
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

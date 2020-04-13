@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('后台首页')"/>
+    <th:block th:include="include :: min862f-css"/>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>概览</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link" title="折叠">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link" title="关闭">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="widget lazur-bg p-lg text-center">
+                                    <div class="m-b-md">
+                                        <h1 class="m-xs" th:text="${total}">47</h1>
+                                        <h3 class="font-bold no-margins">
+                                            总数
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="widget navy-bg p-lg text-center">
+                                    <div class="m-b-md">
+                                        <h1 class="m-xs" th:text="${signed}">47</h1>
+                                        <h3 class="font-bold no-margins">
+                                            已报名数
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="widget yellow-bg p-lg text-center">
+                                    <div class="m-b-md">
+                                        <h1 class="m-xs" th:text="${nosign}">47</h1>
+                                        <h3 class="font-bold no-margins">
+                                            未报名数
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>通道、会场、酒店统计</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link" title="折叠">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link" title="关闭">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="">
+                                    <div id="echarts_pie_pass" style="width: 100%;height: 350px"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="">
+                                    <div id="echarts_pie_place" style="width: 100%;height: 350px"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="">
+                                    <div id="echarts_pie_hotel" style="width: 100%;height: 350px"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>报名统计</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link" title="折叠">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link" title="关闭">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="">
+                                    <div id="echarts_line_visitor" style="width: 100%;height: 350px"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <ul class="stat-list">
+                                    <li style="margin:35px 0;">
+                                        <div class="widget style1 yellow-bg">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <i class="fa  fa-plug fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-right">
+                                                    <span> 今日报名数 </span>
+                                                    <h2 class="font-bold" th:text="${todayCount}">12</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li style="margin:45px 0;">
+                                        <div class="widget style1 navy-bg">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <i class="fa  fa-arrow-circle-up fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-8 text-right">
+                                                    <span> 报名总数 </span>
+                                                    <h2 class="font-bold" th:text="${total}">26'C</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: echarts-js"/>
+<th:block th:include="include :: footer"/>
+<script>
+    $(function () {
+        $(".logUrl").click(function () {
+            var option = {
+                url: $(this).attr("href"),
+                title: "预览",
+                width: $(window).width() / 1.5,
+                btn: ['关闭'],
+                yes: function (index, layero) {
+                    layer.close(index);
+                }
+            };
+            $.modal.openOptions(option);
+            return false;
+        });
+    })
+</script>
+<script>
+    function localRefresh() {
+        $('#logMessagesRefresh').block({
+                message: '<div class="loaderbox"><div class="loading-activity"></div> ' + '正在加载中，请稍后' + '</div>'
+            }
+        );
+        // 装载局部刷新返回的页面
+        $('#logMessagesRefresh').load("/dashboard/main/logMessages");
+    }
+
+    $(function () {
+        //初始化访客统计
+        initVisitorCountInfoEchart();
+        setVisitorCountInfoDataToEchart();
+
+        initPiePass();
+        initPiePlace();
+        initPieHotel();
+
+        setPieData();
+    });
+    var echarts_pie_pass;
+    function initPiePass() {
+        echarts_pie_pass = echarts.init(document.getElementById('echarts_pie_pass'));
+        var option = {
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            title: {
+                text: '通道统计',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            series: [
+                {
+                    name: '报名人数',
+                    type: 'pie',
+                    radius: '40%',
+                    center: ['50%', '60%'],
+                    data: [],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        echarts_pie_pass.showLoading();
+        echarts_pie_pass.setOption(option);
+    }
+
+    var echarts_pie_place;
+    function initPiePlace() {
+        echarts_pie_place = echarts.init(document.getElementById('echarts_pie_place'));
+        var option = {
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            title: {
+                text: '会场统计',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            series: [
+                {
+                    name: '报名人数',
+                    type: 'pie',
+                    radius: '40%',
+                    center: ['50%', '60%'],
+                    data: [],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        echarts_pie_place.showLoading();
+        echarts_pie_place.setOption(option);
+    }
+
+    var echarts_pie_hotel;
+    function initPieHotel() {
+        echarts_pie_hotel = echarts.init(document.getElementById('echarts_pie_hotel'));
+        var option = {
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            title: {
+                text: '酒店统计',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                //左上角数据
+                data: []
+            },
+            series: [
+                {
+                    name: '报名人数',
+                    type: 'pie',
+                    radius: '40%',
+                    center: ['50%', '60%'],
+                    data: [],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        echarts_pie_hotel.showLoading();
+        echarts_pie_hotel.setOption(option);
+    }
+
+    function setPieData() {
+        $.ajax({
+            url: "/dashboard/pieData",
+            type: "get",
+            success: function (result) {
+                console.log(result.data)
+                echarts_pie_pass.hideLoading();
+                echarts_pie_pass.setOption({
+                    series: [
+                        {
+                            data: result.data.passData
+                        }
+                    ]
+                });
+                echarts_pie_place.hideLoading();
+                echarts_pie_place.setOption({
+                    series: [
+                        {
+                            data: result.data.placeData
+                        }
+                    ]
+                });
+                echarts_pie_hotel.hideLoading();
+                echarts_pie_hotel.setOption({
+                    legend: {
+                        data: result.data.hotelData
+                    },
+                    series: [
+                        {
+                            data: result.data.hotelData
+                        }
+                    ]
+                });
+            }
+        })
+    }
+
+    var visitorCountInfoEchart;
+
+    function initVisitorCountInfoEchart() {
+        visitorCountInfoEchart = echarts.init(document.getElementById('echarts_line_visitor'));
+        option = {
+            grid: {
+                x: 45,
+                y: 45,
+                x2: 45,
+                y2: 45,
+            },
+            title: {
+                text: '近七日报名量',
+                left: 'center',
+                subtext: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['近七日报名量']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    dataView: {
+                        readOnly: false
+                    },
+                    magicType: {
+                        type: ['line', 'bar']
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value',
+            },
+            series: [{
+                name: '当日报名量',
+                type: 'line',
+                data: []
+            }]
+        };
+        visitorCountInfoEchart.showLoading();
+        visitorCountInfoEchart.setOption(option);
+    }
+
+    function setVisitorCountInfoDataToEchart() {
+        $.ajax({
+            url: "/dashboard/visitCount/list",
+            type: "get",
+            success: function (result) {
+                visitorCountInfoEchart.hideLoading();
+                if (result.code == 200) {
+                    console.log(result.data);
+                    var xAxiss = new Array();
+                    $.each(result.data, function (index, obj) {
+                        xAxiss[index] = obj.date;
+                    });
+                    visitorCountInfoEchart.setOption({
+                        xAxis: {
+                            data: xAxiss
+                        },
+                        series: [
+                            {
+                                data: result.data
+                            }
+                        ]
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

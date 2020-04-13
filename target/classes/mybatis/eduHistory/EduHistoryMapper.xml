@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimple.project.member.history.mapper.EduHistoryMapper">
+
+    <resultMap type="com.dimple.project.member.history.entity.EduHistory" id="EduHistoryMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="chapter" column="chapter" jdbcType="INTEGER"/>
+        <result property="section" column="section" jdbcType="INTEGER"/>
+        <result property="subjectNumber" column="subject_number" jdbcType="INTEGER"/>
+        <result property="costTime" column="cost_time" jdbcType="INTEGER"/>
+        <result property="totalTime" column="total_time" jdbcType="INTEGER"/>
+        <result property="totalItem" column="total_item" jdbcType="INTEGER"/>
+        <result property="rightItem" column="right_item" jdbcType="INTEGER"/>
+        <result property="updatTime" column="updat_time" jdbcType="TIMESTAMP"/>
+        <result property="states" column="states" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!--要查询显示的字段-->
+    <sql id="Base_Column_List">
+        id, user_id, chapter, section, subject_number, cost_time, total_time, total_item, right_item, updat_time,states
+    </sql>
+    
+    <!--要条件查询的字段-->
+    <sql id="Column_Query">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="chapter != null">
+            and chapter = #{chapter}
+        </if>
+        <if test="section != null">
+            and section = #{section}
+        </if>
+        <if test="subjectNumber != null">
+            and subject_number = #{subjectNumber}
+        </if>
+        <if test="costTime != null">
+            and cost_time = #{costTime}
+        </if>
+        <if test="totalTime != null">
+            and total_time = #{totalTime}
+        </if>
+        <if test="totalItem != null">
+            and total_item = #{totalItem}
+        </if>
+        <if test="rightItem != null">
+            and right_item = #{rightItem}
+        </if>
+        <if test="updatTime != null">
+            and updat_time = #{updatTime}
+        </if>
+        <if test="states != null">
+            and states = #{states}
+        </if>
+    </sql>
+    
+    <!--要更新的字段一-->
+    <sql id="Column_Update_One">
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="chapter != null">
+            chapter = #{chapter},
+        </if>
+        <if test="section != null">
+            section = #{section},
+        </if>
+        <if test="subjectNumber != null">
+            subject_number = #{subjectNumber},
+        </if>
+        <if test="costTime != null">
+            cost_time = #{costTime},
+        </if>
+        <if test="totalTime != null">
+            total_time = #{totalTime},
+        </if>
+        <if test="totalItem != null">
+            total_item = #{totalItem},
+        </if>
+        <if test="rightItem != null">
+            right_item = #{rightItem},
+        </if>
+        <if test="updatTime != null">
+            updat_time = #{updatTime},
+        </if>
+        <if test="states != null">
+            states = #{states}
+        </if>
+    </sql>
+    
+    <!--要更新的字段二-->
+    <sql id="Column_Update_Two">
+        <if test="item.userId != null">
+            user_id = #{item.userId},
+        </if>
+        <if test="item.chapter != null">
+            chapter = #{item.chapter},
+        </if>
+        <if test="item.section != null">
+            section = #{item.section},
+        </if>
+        <if test="item.subjectNumber != null">
+            subject_number = #{item.subjectNumber},
+        </if>
+        <if test="item.costTime != null">
+            cost_time = #{item.costTime},
+        </if>
+        <if test="item.totalTime != null">
+            total_time = #{item.totalTime},
+        </if>
+        <if test="item.totalItem != null">
+            total_item = #{item.totalItem},
+        </if>
+        <if test="item.rightItem != null">
+            right_item = #{item.rightItem},
+        </if>
+        <if test="item.updatTime != null">
+            updat_time = #{item.updatTime},
+        </if>
+        <if test="item.states != null">
+            states = #{item.states}
+        </if>
+    </sql>
+    
+    <!--要新增的字段-->
+    <sql id="Column_Set">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="chapter != null">
+            chapter,
+        </if>
+        <if test="section != null">
+            section,
+        </if>
+        <if test="subjectNumber != null">
+            subject_number,
+        </if>
+        <if test="costTime != null">
+            cost_time,
+        </if>
+        <if test="totalTime != null">
+            total_time,
+        </if>
+        <if test="totalItem != null">
+            total_item,
+        </if>
+        <if test="rightItem != null">
+            right_item,
+        </if>
+        <if test="updatTime != null">
+            updat_time,
+        </if>
+        <if test="states != null">
+            states
+        </if>
+    </sql>
+    <!--要赋值的字段-->
+    <sql id="Column_Value_One">
+        <if test="id != null">
+            #{id},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="chapter != null">
+            #{chapter},
+        </if>
+        <if test="section != null">
+            #{section},
+        </if>
+        <if test="subjectNumber != null">
+            #{subjectNumber},
+        </if>
+        <if test="costTime != null">
+            #{costTime},
+        </if>
+        <if test="totalTime != null">
+            #{totalTime},
+        </if>
+        <if test="totalItem != null">
+            #{totalItem},
+        </if>
+        <if test="rightItem != null">
+            #{rightItem},
+        </if>
+        <if test="updatTime != null">
+            #{updatTime},
+        </if>
+        <if test="states != null">
+            #{states}
+        </if>
+    </sql>
+    
+    <!--要赋值的字段二-->
+    <sql id="Column_Value_Two">
+        <if test="item.id != null">
+            #{item.id},
+        </if>
+        <if test="item.userId != null">
+            #{item.userId},
+        </if>
+        <if test="item.chapter != null">
+            #{item.chapter},
+        </if>
+        <if test="item.section != null">
+            #{item.section},
+        </if>
+        <if test="item.subjectNumber != null">
+            #{item.subjectNumber},
+        </if>
+        <if test="item.costTime != null">
+            #{item.costTime},
+        </if>
+        <if test="item.totalTime != null">
+            #{item.totalTime},
+        </if>
+        <if test="item.totalItem != null">
+            #{item.totalItem},
+        </if>
+        <if test="item.rightItem != null">
+            #{item.rightItem},
+        </if>
+        <if test="item.updatTime != null">
+            #{item.updatTime},
+        </if>
+        <if test="item.states != null">
+            #{item.states}
+        </if>
+    </sql>
+
+
+
+    <!--查询前十名信息-->
+    <select id="getGradeState" resultType="java.util.HashMap" parameterType="java.util.Map">
+            SELECT subject_number 'num' FROM edu_history WHERE chapter = #{chapter,jdbcType=INTEGER} AND section = #{section,jdbcType=INTEGER} AND user_id = #{id,jdbcType=INTEGER} ORDER BY num DESC LIMIT 1
+    </select>
+    
+    <!--通过id查询-->
+    <select id="getEduHistoryById" resultMap="EduHistoryMap">
+        select
+            <include refid="Base_Column_List"/>
+        from edu_history
+        where
+            id = #{id}
+    </select>
+
+
+    <select id="selectEduHistoryTody" resultMap="EduHistoryMap">
+            SELECT
+                h.*,l.`name`
+            FROM
+                edu_history h
+            LEFT JOIN edu_level l ON h.section = l.`level`
+            WHERE
+                h.user_id = #{userId}
+            AND h.states = 1
+            AND DAY (h.updat_time) = DAY (now())
+            AND l.parent = h.chapter
+    </select>
+
+
+
+    <!--查询前十名信息-->
+    <select id="selectEduHistoryStudyRanking" resultType="java.util.HashMap">
+      SELECT user_id,rights,CAST(rowNo AS char) rowNo,nick FROM (
+        SELECT user_id,rights,(@rowNum:=@rowNum+1) AS rowNo FROM
+        (SELECT user_id,SUM(right_item) rights FROM edu_history WHERE states=1  GROUP BY user_id ORDER BY rights DESC) a
+        ,(SELECT(@rowNum:=0)) b) c
+        LEFT JOIN edu_user u
+        on c.user_id = u.id
+        LIMIT 10
+    </select>
+
+
+    <!--查询学生总共排名信息-->
+    <select id="selectEduHistoryStudyCount" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+       SELECT * FROM (
+        SELECT user_id,time,rights,CAST((@rowNum:=@rowNum+1) AS char) rowNo FROM
+        (SELECT user_id,SUM(cost_time) time,SUM(right_item) rights FROM edu_history WHERE states=1 GROUP BY user_id ORDER BY rights DESC) a
+        ,(SELECT(@rowNum:=0)) b) c
+        WHERE user_id=#{id};
+    </select>
+
+    <!--查询学生当天排名信息-->
+    <select id="selectEduHistoryStudy" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+       SELECT * FROM (
+        SELECT user_id,time,rights,CAST((@rowNum:=@rowNum+1) AS char) rowNo , pass FROM
+        (SELECT user_id,SUM(cost_time) time,SUM(right_item) rights ,COUNT(id) pass FROM edu_history WHERE day(updat_time)=day(now()) AND states=1 GROUP BY user_id ORDER BY rights DESC) a
+        ,(SELECT(@rowNum:=0)) b) c
+        WHERE user_id=#{id};
+    </select>
+
+    <!--通过对象查询-->
+    <select id="selectEduHistory" parameterType="com.dimple.project.member.history.entity.EduHistory" resultMap="EduHistoryMap">
+        select
+            <include refid="Base_Column_List"/>
+        from edu_history
+        where 1=1
+        <include refid="Column_Query"/>
+    </select>
+
+
+
+    
+    <!--通过id更改对象-->
+    <update id="updateEduHistory" parameterType="com.dimple.project.member.history.entity.EduHistory">
+        update edu_history
+        <set>
+            <include refid="Column_Update_One"/>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--批量更改对象-->
+    <update id="updateEduHistoryList" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            update edu_history
+            <set>
+                <include refid="Column_Update_Two"/>
+            </set>
+        </foreach>
+    </update>
+    
+    <!--通过id删除-->
+    <delete id="deleteEduHistoryById">
+        delete from edu_history 
+        where 
+            id = #{id}
+    </delete>
+    
+    <!--通过ids批量删除-->
+    <delete id="deleteEduHistoryByIds">
+        delete from edu_history 
+        where 
+            id in (ids)
+    </delete>
+    
+    <!--新增数据-->
+    <insert id="insertEduHistory" parameterType="com.dimple.project.member.history.entity.EduHistory">
+        insert into edu_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="Column_Value_One"/>
+        </trim>
+    </insert>
+    
+    
+    <!--批量新增数据-->
+    <insert id="insertEduHistoryList" parameterType="java.util.List">
+        insert into edu_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <include refid="Column_Value_Two"/>
+            </trim>
+        </foreach>
+    </insert>
+</mapper>
