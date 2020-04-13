@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimple.project.member.errorItem.mapper.EduErrorItemMapper">
+
+    <resultMap type="com.dimple.project.member.errorItem.entity.EduErrorItem" id="EduErrorItemMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="itemBankId" column="item_bank_id" jdbcType="INTEGER"/>
+        <result property="chapter" column="chapter" jdbcType="INTEGER"/>
+        <result property="section" column="section" jdbcType="INTEGER"/>
+        <result property="subjectNumber" column="subject_number" jdbcType="INTEGER"/>
+        <result property="uptime" column="uptime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap type="com.dimple.project.member.itemBank.entity.EduItemBank" id="EduItemBankMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="chapter" column="chapter" jdbcType="INTEGER"/>
+        <result property="section" column="section" jdbcType="INTEGER"/>
+        <result property="subjectNumber" column="subject_number" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="leftPicture" column="left_picture" jdbcType="VARCHAR"/>
+        <result property="leftEnglishVoice" column="left_english_voice" jdbcType="VARCHAR"/>
+        <result property="leftChineseVoice" column="left_chinese_voice" jdbcType="VARCHAR"/>
+        <result property="rightPicture" column="right_picture" jdbcType="VARCHAR"/>
+        <result property="rightEnglishVoice" column="right_english_voice" jdbcType="VARCHAR"/>
+        <result property="rightChineseVoice" column="right_chinese_voice" jdbcType="VARCHAR"/>
+        <result property="difficulty" column="difficulty" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--要查询显示的字段-->
+    <sql id="Base_Column_List">
+        id, user_id, item_bank_id, chapter, section, subject_number, uptime        
+    </sql>
+    
+    <!--要条件查询的字段-->
+    <sql id="Column_Query">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="itemBankId != null">
+            and item_bank_id = #{itemBankId}
+        </if>
+        <if test="chapter != null">
+            and chapter = #{chapter}
+        </if>
+        <if test="section != null">
+            and section = #{section}
+        </if>
+        <if test="subjectNumber != null">
+            and subject_number = #{subjectNumber}
+        </if>
+        <if test="uptime != null">
+            and uptime = #{uptime}
+        </if>
+    </sql>
+    
+    <!--要更新的字段一-->
+    <sql id="Column_Update_One">
+        <if test="userId != null">
+            user_id = #{userId},
+        </if>
+        <if test="itemBankId != null">
+            item_bank_id = #{itemBankId},
+        </if>
+        <if test="chapter != null">
+            chapter = #{chapter},
+        </if>
+        <if test="section != null">
+            section = #{section},
+        </if>
+        <if test="subjectNumber != null">
+            subject_number = #{subjectNumber},
+        </if>
+        <if test="uptime != null">
+            uptime = #{uptime},
+        </if>
+    </sql>
+    
+    <!--要更新的字段二-->
+    <sql id="Column_Update_Two">
+        <if test="item.userId != null">
+            user_id = #{item.userId},
+        </if>
+        <if test="item.itemBankId != null">
+            item_bank_id = #{item.itemBankId},
+        </if>
+        <if test="item.chapter != null">
+            chapter = #{item.chapter},
+        </if>
+        <if test="item.section != null">
+            section = #{item.section},
+        </if>
+        <if test="item.subjectNumber != null">
+            subject_number = #{item.subjectNumber},
+        </if>
+        <if test="item.uptime != null">
+            uptime = #{item.uptime},
+        </if>
+    </sql>
+    
+    <!--要新增的字段-->
+    <sql id="Column_Set">
+        <if test="id != null">
+            id,
+        </if>
+        <if test="userId != null">
+            user_id,
+        </if>
+        <if test="itemBankId != null">
+            item_bank_id,
+        </if>
+        <if test="chapter != null">
+            chapter,
+        </if>
+        <if test="section != null">
+            section,
+        </if>
+        <if test="subjectNumber != null">
+            subject_number,
+        </if>
+        <if test="uptime != null">
+            uptime,
+        </if>
+    </sql>
+    <!--要赋值的字段-->
+    <sql id="Column_Value_One">
+        <if test="id != null">
+            #{id},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="itemBankId != null">
+            #{itemBankId},
+        </if>
+        <if test="chapter != null">
+            #{chapter},
+        </if>
+        <if test="section != null">
+            #{section},
+        </if>
+        <if test="subjectNumber != null">
+            #{subjectNumber},
+        </if>
+        <if test="uptime != null">
+            #{uptime},
+        </if>
+    </sql>
+    
+    <!--要赋值的字段二-->
+    <sql id="Column_Value_Two">
+        <if test="item.id != null">
+            #{item.id},
+        </if>
+        <if test="item.userId != null">
+            #{item.userId},
+        </if>
+        <if test="item.itemBankId != null">
+            #{item.itemBankId},
+        </if>
+        <if test="item.chapter != null">
+            #{item.chapter},
+        </if>
+        <if test="item.section != null">
+            #{item.section},
+        </if>
+        <if test="item.subjectNumber != null">
+            #{item.subjectNumber},
+        </if>
+        <if test="item.uptime != null">
+            #{item.uptime},
+        </if>
+    </sql>
+    <!--删除错题集-->
+    <delete id="deleteEduErrorItemList">
+        delete from edu_error_item
+        WHERE user_id = #{userId}
+        AND chapter = #{chapter}
+        AND section = #{section}
+        AND subject_number = #{subjectNumber}
+    </delete>
+
+    <!--获取错题集关联题目信息-->
+    <select id="selectEduErrorItemAll" parameterType="com.dimple.project.member.errorItem.entity.EduErrorItem" resultMap="EduItemBankMap">
+        SELECT i.* FROM edu_error_item e LEFT JOIN edu_item_bank i
+        ON e.item_bank_id = i.id
+        WHERE e.user_id = #{userId}
+        AND e.chapter = #{chapter}
+        AND e.section = #{section}
+        AND e.subject_number = #{subjectNumber}
+    </select>
+
+    <!--通过id查询-->
+    <select id="getEduErrorItemById" resultMap="EduErrorItemMap">
+        select 
+            <include refid="Base_Column_List"/>
+        from edu_error_item
+        where 
+            id = #{id}
+    </select>
+
+    <!--通过对象查询-->
+    <select id="selectEduErrorItem" parameterType="com.dimple.project.member.errorItem.entity.EduErrorItem" resultMap="EduErrorItemMap">
+        select
+            <include refid="Base_Column_List"/>
+        from edu_error_item
+        where 1=1
+        <include refid="Column_Query"/>
+    </select>
+    
+    <!--通过id更改对象-->
+    <update id="updateEduErrorItem" parameterType="com.dimple.project.member.errorItem.entity.EduErrorItem">
+        update edu_error_item
+        <set>
+            <include refid="Column_Update_One"/>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!--批量更改对象-->
+    <update id="updateEduErrorItemList" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            update edu_error_item
+            <set>
+                <include refid="Column_Update_Two"/>
+            </set>
+        </foreach>
+    </update>
+    
+    <!--通过id删除-->
+    <delete id="deleteEduErrorItemById">
+        delete from edu_error_item 
+        where 
+            id = #{id}
+    </delete>
+    
+    <!--通过ids批量删除-->
+    <delete id="deleteEduErrorItemByIds">
+        delete from edu_error_item 
+        where 
+            id in (ids)
+    </delete>
+    
+    <!--新增数据-->
+    <insert id="insertEduErrorItem" parameterType="com.dimple.project.member.errorItem.entity.EduErrorItem">
+        insert into edu_error_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="Column_Value_One"/>
+        </trim>
+    </insert>
+    
+    
+    <!--批量新增数据-->
+    <insert id="insertEduErrorItemList" parameterType="java.util.List">
+        insert into edu_error_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="Column_Set"/>
+        </trim>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <include refid="Column_Value_Two"/>
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

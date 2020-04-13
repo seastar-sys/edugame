@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dimple.project.robot.robot.mapper.RobotUserMapper">
+    <resultMap type="RobotUser" id="RobotResult">
+        <id property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="password" column="password"/>
+        <result property="rname" column="rname"/>
+        <result property="token" column="token"/>
+        <result property="imei" column="imei"/>
+        <result property="xlnumber" column="xlnumber"/>
+        <result property="xlpassword" column="xlpassword"/>
+        <result property="xlgroup" column="xlgroup"/>
+        <result property="hhnumber" column="hhnumber"/>
+        <result property="hhpassword" column="hhpassword"/>
+        <result property="hhgroup" column="hhgroup"/>
+        <result property="mquser" column="mquser"/>
+        <result property="mqpwd" column="mqpwd"/>
+        <result property="mqpublic" column="mqpublic"/>
+        <result property="mqsend" column="mqsend"/>
+        <result property="state" column="state"/>
+        <result property="online" column="online"/>
+        <result property="endTime" column="end_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="login" column="login"/>
+    </resultMap>
+    <insert id="insertRobotUser" useGeneratedKeys="true" keyProperty="id">
+        insert into robot_user(
+        <if test="id != null and id != 0">id,</if>
+        <if test="number != null and number != ''">number,</if>
+        <if test="password != null and password != ''">password,</if>
+        <if test="rname != null and rname != ''">rname,</if>
+        <if test="token != null and token != ''">token,</if>
+        <if test="imei != null and imei != ''">imei,</if>
+        <if test="xlnumber != null and xlnumber != ''">xlnumber,</if>
+        <if test="xlpassword != null and xlpassword != ''">xlpassword,</if>
+        <if test="xlgroup != null and xlgroup != ''">xlgroup,</if>
+        <if test="hhnumber != null and hhnumber != ''">hhnumber,</if>
+        <if test="hhpassword != null and hhpassword != ''">hhpassword,</if>
+        <if test="hhgroup != null and hhgroup != ''">hhgroup,</if>
+        <if test="mquser != null and mquser != ''">mquser,</if>
+        <if test="mqpwd != null and mqpwd != ''">mqpwd,</if>
+        <if test="mqpublic != null and mqpublic != ''">mqpublic,</if>
+        <if test="mqsend != null and mqsend != ''">mqsend,</if>
+        <if test="state != null and state != ''">state,</if>
+        <if test="online != null and online != ''">online,</if>
+        <if test="endTime != null and endTime != ''">end_time,</if>
+        <if test="remark != null and remark != ''">remark,</if>
+        <if test="createBy != null and createBy != ''">create_by,</if>
+        <if test="updateBy != null and updateBy != ''">update_by,</if>
+        <if test="updateTime != null and updateTime != ''">update_time,</if>
+        create_time
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="number != null and number != ''">#{number},</if>
+        <if test="password != null and password != ''">#{password},</if>
+        <if test="rname != null and rname != ''">#{rname},</if>
+        <if test="token != null and token != ''">#{token},</if>
+        <if test="imei != null and imei != ''">#{imei},</if>
+        <if test="xlnumber != null and xlnumber != ''">#{xlnumber},</if>
+        <if test="xlpassword != null and xlpassword != ''">#{xlpassword},</if>
+        <if test="xlgroup != null and xlgroup != ''">#{xlgroup},</if>
+        <if test="hhnumber != null and hhnumber != ''">#{hhnumber},</if>
+        <if test="hhpassword != null and hhpassword != ''">#{hhpassword},</if>
+        <if test="hhgroup != null and hhgroup != ''">#{hhgroup},</if>
+        <if test="mquser != null and mquser != ''">#{mquser},</if>
+        <if test="mqpwd != null and mqpwd != ''">#{mqpwd},</if>
+        <if test="mqpublic != null and mqpublic != ''">#{mqpublic},</if>
+        <if test="mqsend != null and mqsend != ''">#{mqsend},</if>
+        <if test="state != null and state != ''">#{state},</if>
+        <if test="online != null and online != ''">#{online},</if>
+        <if test="endTime != null and endTime != ''">#{end_time},</if>
+        <if test="remark != null and remark != ''">#{remark},</if>
+        <if test="createBy != null and createBy != ''">#{createBy},</if>
+        <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+        <if test="updateTime != null and updateTime != ''">#{updateTime},</if>
+        sysdate()
+        )
+    </insert>
+
+    <select id="selectRobotUserList" resultType="com.dimple.project.robot.robot.domain.RobotUser">
+        select * from robot_user
+        <where>
+            <if test="number!=null and number!=''">
+                and number = #{number}
+            </if>
+            <if test="xlnumber!=null and xlnumber!=''">
+                and xlnumber = #{xlnumber}
+            </if>
+            <if test="xlgroup!=null and xlgroup!=''">
+                and xlgroup = #{xlgroup}
+            </if>
+            <if test="hhnumber!=null and hhnumber!=''">
+                and hhnumber = #{hhnumber}
+            </if>
+            <if test="state!=null and state!=''">
+                AND state = #{state}
+            </if>
+            <if test="online!=null and online!=''">
+                AND online = #{online}
+            </if>
+        </where>
+    </select>
+    <select id="selectTimeRobotUserList" resultType="com.dimple.project.robot.robot.domain.RobotUser">
+        select * from robot_user WHERE end_time>=now() AND online =0 AND login&lt;3
+    </select>
+
+    <delete id="deleteRobotUserByIds">
+        delete from robot_user where id in
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="selectRobotUserById" resultType="com.dimple.project.robot.robot.domain.RobotUser">
+        select * from robot_user
+        <where>
+            <if test="id!=null and id!=''">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateRobotUser" parameterType="RobotUser">
+        update robot_user
+        <set>
+            <if test="number != null and number != ''">number = #{number},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="rname != null and rname != ''">rname = #{rname},</if>
+            <if test="token != null">token = #{token},</if>
+            <if test="imei != null and imei != ''">imei = #{imei},</if>
+            <if test="xlnumber != null and xlnumber != ''">xlnumber = #{xlnumber},</if>
+            <if test="xlpassword != null and xlpassword != ''">xlpassword = #{xlpassword},</if>
+            <if test="xlgroup !=null and xlgroup != ''">xlgroup = #{xlgroup},</if>
+            <if test="hhnumber !=null and hhnumber != ''">hhnumber = #{hhnumber},</if>
+            <if test="hhpassword !=null and hhpassword != ''">hhpassword = #{hhpassword},</if>
+            <if test="hhgroup !=null and hhgroup != ''">hhgroup = #{hhgroup},</if>
+            <if test="mquser !=null and mquser != ''">mquser = #{mquser},</if>
+            <if test="mqpwd !=null and mqpwd != ''">mqpwd = #{mqpwd},</if>
+            <if test="mqpublic !=null and mqpublic != ''">mqpublic = #{mqpublic},</if>
+            <if test="mqsend !=null and mqsend != ''">mqsend = #{mqsend},</if>
+            <if test="state !=null">state = #{state},</if>
+            <if test="online !=null">online = #{online},</if>
+            <if test="endTime !=null and endTime != ''">end_time = #{end_time},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateRobotUserToken" parameterType="RobotUser">
+        update robot_user
+        <set>
+            <if test="token != null and token != ''">token = #{token},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="online != null and online != ''">online = #{online},</if>
+            <if test="login != null and login != ''">login = #{login},</if>
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

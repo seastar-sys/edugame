@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dimple.project.robot.robot.mapper.RobotTaskMapper">
+
+    <insert id="insertRobotTask" useGeneratedKeys="true" keyProperty="id">
+        insert into robot_task(
+        <if test="id != null and id != 0">id,</if>
+        <if test="groupid != null and groupid != ''">groupid,</if>
+        <if test="deskid != null and deskid != ''">deskid,</if>
+        <if test="uuid != null and uuid != ''">uuid,</if>
+        <if test="circledesc != null and circledesc != ''">circledesc,</if>
+        <if test="people != null and people != ''">people,</if>
+        <if test="winner != null and winner != ''">winner,</if>
+        <if test="owner != null and owner != ''">owner,</if>
+        <if test="anick != null and anick != ''">anick,</if>
+        <if test="auserid != null and auserid != ''">auserid,</if>
+        <if test="ascore != null and ascore != ''">ascore,</if>
+        <if test="aheadimg != null and aheadimg != ''">aheadimg,</if>
+        <if test="bnick != null and bnick != ''">bnick,</if>
+        <if test="buserid != null and buserid != ''">buserid,</if>
+        <if test="bscore != null and bscore != ''">bscore,</if>
+        <if test="bheadimg != null and bheadimg != ''">bheadimg,</if>
+        <if test="cnick != null and cnick != ''">cnick,</if>
+        <if test="cuserid != null and cuserid != ''">cuserid,</if>
+        <if test="cscore != null and cscore != ''">cscore,</if>
+        <if test="cheadimg != null and cheadimg != ''">cheadimg,</if>
+        <if test="dnick != null and dnick != ''">dnick,</if>
+        <if test="duserid != null and duserid != ''">duserid,</if>
+        <if test="dscore != null and dscore != ''">dscore,</if>
+        <if test="dheadimg != null and dheadimg != ''">dheadimg,</if>
+        <if test="creattime != null and creattime != ''">creattime,</if>
+        <if test="state != null and state != ''">#{state,jdbcType=INT},</if>
+        <if test="logs != null and logs != ''">#{logs,jdbcType=INT},</if>
+        addttime
+        )values(
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="groupid != null and groupid != ''">#{groupid},</if>
+        <if test="deskid != null and deskid != ''">#{deskid},</if>
+        <if test="uuid != null and uuid != ''">#{uuid},</if>
+        <if test="circledesc != null and circledesc != ''">#{circledesc},</if>
+        <if test="people != null and people != ''">#{people},</if>
+        <if test="winner != null and winner != ''">#{winner},</if>
+        <if test="owner != null and owner != ''">#{owner},</if>
+        <if test="anick != null and anick != ''">#{anick},</if>
+        <if test="auserid != null and auserid != ''">#{auserid},</if>
+        <if test="ascore != null and ascore != ''">#{ascore},</if>
+        <if test="aheadimg != null and aheadimg != ''">#{aheadimg},</if>
+        <if test="bnick != null and bnick != ''">#{bnick},</if>
+        <if test="buserid != null and buserid != ''">#{buserid},</if>
+        <if test="bscore != null and bscore != ''">#{bscore},</if>
+        <if test="bheadimg != null and bheadimg != ''">#{bheadimg},</if>
+        <if test="cnick != null and cnick != ''">#{cnick},</if>
+        <if test="cuserid != null and cuserid != ''">#{cuserid},</if>
+        <if test="cscore != null and cscore != ''">#{cscore},</if>
+        <if test="cheadimg != null and cheadimg != ''">#{cheadimg},</if>
+        <if test="dnick != null and dnick != ''">#{dnick},</if>
+        <if test="duserid != null and duserid != ''">#{duserid},</if>
+        <if test="dscore != null and dscore != ''">#{dscore},</if>
+        <if test="dheadimg != null and dheadimg != ''">#{dheadimg},</if>
+        <if test="creattime != null and creattime != ''">#{creattime},</if>
+        <if test="state != null and state != ''">#{state,jdbcType=INT},</if>
+        <if test="logs != null and logs != ''">#{logs,jdbcType=INT},</if>
+        sysdate()
+        )
+    </insert>
+    <update id="updateRobotTask" parameterType="RobotTask">
+        update robot_task
+        <set>
+            <if test="state != null and state != ''">state = #{state},</if>
+            uptime = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+    <update id="addRobotTaskLogs" parameterType="RobotTask">
+        UPDATE robot_task SET `logs`=logs+1 WHERE id = #{id}
+    </update>
+    <select id="selectRobotTaskById" resultType="com.dimple.project.robot.robot.domain.RobotTask">
+        select * from robot_task WHERE id=#{id}
+    </select>
+    <select id="timeRobotTaskList" resultType="com.dimple.project.robot.robot.domain.RobotTask">
+        SELECT * FROM robot_task WHERE state in(0,1) AND logs &lt; 4  AND (DATE_ADD(addttime,INTERVAL 30 second)) &gt;= NOW() ORDER BY addttime LIMIT 1
+    </select>
+    <select id="selectRobotTask" resultType="com.dimple.project.robot.robot.domain.RobotTask">
+        select * from robot_task WHERE groupid=#{groupid} AND state in(0,1) AND logs &lt; 4  AND (DATE_ADD(addttime,INTERVAL 30 second)) &gt;= NOW() ORDER BY addttime LIMIT 1
+    </select>
+    <select id="selectRobotTaskRepeat" resultType="com.dimple.project.robot.robot.domain.RobotTask">
+        select * from robot_task
+        <where>
+            <if test="groupid!=null and groupid!=''">
+                and groupid = #{groupid}
+            </if>
+            <if test="deskid!=null and deskid!=''">
+                and deskid = #{deskid}
+            </if>
+            <if test="uuid!=null and uuid!=''">
+                and uuid = #{uuid}
+            </if>
+            <if test="creattime!=null and creattime!=''">
+                and creattime = #{creattime}
+            </if>
+        </where>
+    </select>
+
+</mapper>

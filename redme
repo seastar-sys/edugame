@@ -1,0 +1,2 @@
+mvn package -Dmaven.test.skip=true -P produce -f pom.xml
+nohup java -jar edugame.jar --spring.profiles.active=druid --spring.redis.host=172.18.56.193 --spring.redis.port=63790 --spring.redis.password=duoxueyimen --server.port=8081 &
