@@ -210,6 +210,7 @@ public class ApiController extends BaseController {
             e.setUptime(new Date());
             this.eduErrorItemService.insertEduErrorItem(e);
           }
+          
         }
         EduHistory eduHistory = new EduHistory();
         eduHistory.setUserId(user.getId());
